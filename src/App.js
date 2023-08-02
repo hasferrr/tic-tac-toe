@@ -7,6 +7,7 @@ const App = () => {
 
   const Gameboard = (() => {
 
+    // Assign X or O to board
     const assign = event => {
       if (board[event.target.id] === null) {
         event.target.innerText = turn
@@ -19,13 +20,43 @@ const App = () => {
       }
     }
 
+    // Remove all X and O from board
     const resetBoard = () => {
       setBoard(Array(9).fill(null))
       setTurn('X')
     }
 
-    return { assign, resetBoard }
+    // Produce the winner: 'X', 'O', 'tie', or False
+    const gameResult = () => {
+      const row = check(templateRow)
+      const column = check(templateCol)
+      const diagonal = check(templateDiag)
+      const result = row || column || diagonal
+      if (board.every(x => x) && !result) {
+        return 'tie'
+      }
+      return result
+    }
+
+    const templateRow = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+    const templateCol = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
+    const templateDiag = [[0, 4, 8], [2, 4, 6]]
+
+    const check = template => {
+      for (let i = 0; i < template.length; i++) {
+        const arr = template[i];
+        if (arr.every(x => board[x] === 'X')) return 'X'
+        if (arr.every(x => board[x] === 'O')) return 'O'
+      }
+      return false
+    }
+
+    return { assign, resetBoard, gameResult }
   })()
+
+  useEffect(() => {
+    console.log(Gameboard.gameResult())
+  }, [Gameboard])
 
   return (
     <div className='Board'>
