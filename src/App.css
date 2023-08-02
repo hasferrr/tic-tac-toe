@@ -9,11 +9,8 @@
   --border: 3px solid black;
 }
 
-body {
-  font-family: 'Courier New', Courier, monospace;
-}
-
 .Board {
+  font-family: 'Courier New', Courier, monospace;
   display: grid;
   grid-template-columns: repeat(3, var(--length));
   grid-auto-rows: var(--length);
