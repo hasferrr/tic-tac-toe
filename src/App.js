@@ -28,11 +28,14 @@ const App = () => {
 
     // Assign X or O to board
     const assign = event => {
-      if (board[event.target.id] === null) {
-        event.target.innerText = turn
+      assignManual(event.target.id, turn)
+    }
+
+    const assignManual = (index, value) => {
+      if (board[index] === null) {
         setBoard((() => {
           const copy = [...board]
-          copy[event.target.id] = turn
+          copy[index] = value
           return copy
         })())
         setTurn(turn === 'X' ? 'O' : 'X')
@@ -70,7 +73,7 @@ const App = () => {
       return false
     }
 
-    return { assign, resetBoard, gameResult }
+    return { assign, assignManual, resetBoard, gameResult }
   })()
 
   const Gamestate = (() => {
@@ -109,12 +112,7 @@ const App = () => {
       const assignMark = () => {
         const rand = Math.floor(Math.random() * 9) // random num 0 to 8
         if (!board[rand]) {
-          setBoard((() => {
-            const copy = [...board]
-            copy[rand] = turn
-            return copy
-          })())
-          setTurn(turn === 'X' ? 'O' : 'X')
+          Gameboard.assignManual(rand, turn)
           return
         }
         assignMark()
