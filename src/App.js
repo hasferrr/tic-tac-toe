@@ -17,9 +17,9 @@ const App = () => {
     player1score: 0,
     player2score: 0
   })
-
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(game.player1mark)
+
 
   const Gameboard = (() => {
 
@@ -70,33 +70,37 @@ const App = () => {
     return { assign, resetBoard, gameResult }
   })()
 
-  const togglePlayState = () => setPlayState(!playState)
-  const changeMode = newMode => setGame({ ...game, mode: newMode })
-  const swapMarkMode = () => setGame({
-    ...game,
-    player1mark: game.player2mark,
-    player2mark: game.player1mark
-  })
+  const Gamestate = (() => {
+    const togglePlayState = () => setPlayState(!playState)
 
-  const startGame = () => {
-    togglePlayState()
-    Gameboard.resetBoard()
-    setGame({
+    const changeMode = newMode => setGame({ ...game, mode: newMode })
+
+    const swapMarkMode = () => setGame({
       ...game,
-      player1score: 0,
-      player2score: 0
+      player1mark: game.player2mark,
+      player2mark: game.player1mark
     })
-  }
+
+    const startGame = () => {
+      togglePlayState()
+      Gameboard.resetBoard()
+      setGame({
+        ...game,
+        player1score: 0,
+        player2score: 0
+      })
+    }
+
+    return { togglePlayState, changeMode, swapMarkMode, startGame }
+  })()
+
 
   if (playState) {
     return (
       <div>
         <Settings
-          togglePlayState={togglePlayState}
+          Gamestate={Gamestate}
           game={game}
-          changeMode={changeMode}
-          swapMarkMode={swapMarkMode}
-          startGame={startGame}
         />
       </div>
     )
@@ -104,7 +108,10 @@ const App = () => {
 
   return (
     <div className='App'>
-      <Navigation Gameboard={Gameboard} togglePlayState={togglePlayState} />
+      <Navigation
+        Gameboard={Gameboard}
+        Gamestate={Gamestate}
+      />
       <Score />
       <Board board={board} Gameboard={Gameboard} />
       <PlayerDisplay player={1} />
