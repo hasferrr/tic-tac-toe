@@ -3,6 +3,7 @@ import './App.css'
 import Board from './components/Board'
 import Navigation from './components/Navigation'
 import Score from './components/Score'
+import PlayerDisplay from './components/PlayerDisplay'
 
 const App = () => {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -61,15 +62,17 @@ const App = () => {
    *
    * @param {string} name
    * @param {string} type
+   * @param {string} mark
    * @returns
    */
-  const Player = (name, type) => {
+  const Player = (name, type, mark) => {
     let score = 0
     const getName = () => name
     const getType = () => type
+    const getMark = () => mark
     const getScore = () => score
     const addScore = () => ++score
-    return { getName, getType, getScore, addScore }
+    return { getName, getType, getMark, getScore, addScore }
   }
 
   useEffect(() => {
@@ -81,6 +84,8 @@ const App = () => {
       <Navigation Gameboard={Gameboard} />
       <Score />
       <Board board={board} Gameboard={Gameboard} />
+      <PlayerDisplay player={1} />
+      <PlayerDisplay player={2} />
     </div>
   )
 }

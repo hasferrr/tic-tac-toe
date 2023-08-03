@@ -1,0 +1,14 @@
+.PlayerDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.p1 {
+  grid-area: left;
+}
+
+.p2 {
+  grid-area: right;
+}
