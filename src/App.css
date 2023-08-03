@@ -7,7 +7,6 @@
 }
 
 :root {
-  --navbar-height: 4rem;
   --padding: 4rem;
 }
 
@@ -20,11 +19,13 @@ body {
 .App {
   display: grid;
   grid-template-areas:
+    "nav nav nav"
     "left score right"
     "left board right"
     "left bottom right";
   grid-template-columns: 0fr 5fr 0fr;
-  grid-template-rows: 1fr 8fr 1fr;
+  grid-template-rows: 4rem 1fr 4fr 1fr;
+  height: 100vh;
 }
 
 .make-btn {
@@ -38,5 +39,5 @@ body {
 
 .App,
 .App * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }

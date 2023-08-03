@@ -1,5 +1,5 @@
 .Navigation {
-  height: var(--navbar-height);
+  grid-area: nav;
   padding: 1.5rem var(--padding);
   display: flex;
   align-items: center;

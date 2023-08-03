@@ -1,5 +1,5 @@
 :root {
-  --length: 9rem;
+  --length: 8rem;
   --border: 3px solid white;
 }
 
@@ -11,7 +11,6 @@
   grid-auto-rows: var(--length);
   justify-content: center;
   align-content: center;
-  /* height: calc(100vh - var(--navbar-height)); */
 }
 
 .box {

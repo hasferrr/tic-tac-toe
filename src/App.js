@@ -57,18 +57,31 @@ const App = () => {
     return { assign, resetBoard, gameResult }
   })()
 
+  /**
+   *
+   * @param {string} name
+   * @param {string} type
+   * @returns
+   */
+  const Player = (name, type) => {
+    let score = 0
+    const getName = () => name
+    const getType = () => type
+    const getScore = () => score
+    const addScore = () => ++score
+    return { getName, getType, getScore, addScore }
+  }
+
   useEffect(() => {
     console.log(Gameboard.gameResult())
   }, [Gameboard])
 
   return (
-    <>
+    <div className='App'>
       <Navigation Gameboard={Gameboard} />
-      <div className='App'>
-        <Score />
-        <Board board={board} Gameboard={Gameboard} />
-      </div>
-    </>
+      <Score />
+      <Board board={board} Gameboard={Gameboard} />
+    </div>
   )
 }
 
