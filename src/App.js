@@ -20,7 +20,7 @@ const App = () => {
     player2score: 0
   })
   const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(game.player1mark)
+  const [turn, setTurn] = useState('X')
   const [winner, setWinner] = useState(false)
 
 
@@ -45,7 +45,7 @@ const App = () => {
     // Remove all X and O from board
     const resetBoard = () => {
       setBoard(Array(9).fill(null))
-      setTurn(game.player1mark)
+      setTurn('X')
     }
 
     // Produce the winner: 'X', 'O', 'tie', or False
@@ -104,11 +104,9 @@ const App = () => {
 
     // computer make a random legal move
     const easy = () => {
-
       if (board.every(x => x !== null)) {
         return
       }
-
       const assignMark = () => {
         const rand = Math.floor(Math.random() * 9) // random num 0 to 8
         if (!board[rand]) {
@@ -117,7 +115,6 @@ const App = () => {
         }
         assignMark()
       }
-
       assignMark()
     }
 
