@@ -7,6 +7,7 @@ import Navigation from './components/Navigation'
 import Score from './components/Score'
 import Player from './components/Player'
 import Mode from './components/Mode'
+import Bottom from './components/Bottom'
 
 const App = () => {
   const [playState, setPlayState] = useState(true)
@@ -130,6 +131,7 @@ const App = () => {
       <Board board={board} Gameboard={Gameboard} winner={winner} />
       <Player game={game} player={1} />
       <Player game={game} player={2} />
+      <Bottom turn={turn} />
     </div>
   )
 }
