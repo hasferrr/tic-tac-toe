@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 
@@ -95,6 +95,23 @@ const App = () => {
   })()
 
 
+  useEffect(() => {
+    const winner = Gameboard.gameResult()
+    if (winner) {
+      // increment score
+      if (game.player1mark === winner) {
+        setGame({ ...game, player1score: game.player1score + 1 })
+      } else if (game.player2mark === winner) {
+        setGame({ ...game, player2score: game.player2score + 1 })
+      }
+      // disable assign into board !!!
+      // re-enable assign into board !!!
+      // reset board !!!
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [board])
+
+
   if (playState) {
     return (
       <div>
@@ -112,7 +129,7 @@ const App = () => {
         Gameboard={Gameboard}
         Gamestate={Gamestate}
       />
-      <Score game={game}/>
+      <Score game={game} />
       <Board board={board} Gameboard={Gameboard} />
       <PlayerDisplay player={1} />
       <PlayerDisplay player={2} />
