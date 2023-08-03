@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Board from './components/Board'
 import Navigation from './components/Navigation'
+import Score from './components/Score'
 
 const App = () => {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -64,6 +65,7 @@ const App = () => {
     <>
       <Navigation Gameboard={Gameboard} />
       <div className='App'>
+        <Score />
         <Board board={board} Gameboard={Gameboard} />
       </div>
     </>

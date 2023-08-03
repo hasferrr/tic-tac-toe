@@ -6,7 +6,6 @@
 .Board {
   grid-area: board;
   font-family: 'Courier New', Courier, monospace;
-  color: white;
   display: grid;
   grid-template-columns: repeat(3, var(--length));
   grid-auto-rows: var(--length);

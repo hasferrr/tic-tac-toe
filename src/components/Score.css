@@ -1,0 +1,5 @@
+.Score {
+  grid-area: score;
+  display: flex;
+  margin: auto;
+}
