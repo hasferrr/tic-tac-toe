@@ -1,9 +1,9 @@
-import './Settings.css'
+import './Mode.css'
 
-const Settings = ({ Gamestate, game }) => {
+const Mode = ({ Gamestate, game }) => {
 
   return (
-    <div className='Settings center'>
+    <div className='Mode center'>
       <h1 className='make-btn'>tic-tac-toe.</h1>
 
       <section className='select-wrap center'>
@@ -31,4 +31,4 @@ const Settings = ({ Gamestate, game }) => {
   )
 }
 
-export default Settings
+export default Mode

@@ -5,8 +5,8 @@ import './App.css'
 import Board from './components/Board'
 import Navigation from './components/Navigation'
 import Score from './components/Score'
-import PlayerDisplay from './components/PlayerDisplay'
-import Settings from './components/Settings'
+import Player from './components/Player'
+import Mode from './components/Mode'
 
 const App = () => {
   const [playState, setPlayState] = useState(true)
@@ -110,21 +110,14 @@ const App = () => {
       setTimeout(() => {
         setWinner(false)
         Gameboard.resetBoard()
-      }, 2500);
+      }, 1500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board])
 
 
   if (playState) {
-    return (
-      <div>
-        <Settings
-          Gamestate={Gamestate}
-          game={game}
-        />
-      </div>
-    )
+    return <Mode Gamestate={Gamestate} game={game} />
   }
 
   return (
@@ -135,8 +128,8 @@ const App = () => {
       />
       <Score game={game} winner={winner} />
       <Board board={board} Gameboard={Gameboard} winner={winner} />
-      <PlayerDisplay player={1} />
-      <PlayerDisplay player={2} />
+      <Player player={1} />
+      <Player player={2} />
     </div>
   )
 }

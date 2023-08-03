@@ -1,4 +1,4 @@
-.Settings {
+.Mode {
   flex-direction: column;
   gap: 3rem;
   padding: 2rem;
@@ -6,7 +6,7 @@
   font-size: 2rem;
 }
 
-.Settings h1 {
+.Mode h1 {
   font-size: 3rem;
 }
 
