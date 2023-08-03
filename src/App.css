@@ -26,6 +26,15 @@ body {
   grid-template-rows: 1fr 8fr 1fr;
 }
 
+.make-btn {
+  user-select: none;
+  cursor: pointer;
+}
+
+.make-btn:hover {
+  filter: brightness(.8);
+}
+
 .App,
 .App * {
   border: 1px solid red;

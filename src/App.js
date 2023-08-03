@@ -62,7 +62,7 @@ const App = () => {
 
   return (
     <>
-      <Navigation />
+      <Navigation Gameboard={Gameboard} />
       <div className='App'>
         <Board board={board} Gameboard={Gameboard} />
       </div>
