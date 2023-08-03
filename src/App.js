@@ -19,6 +19,7 @@ const App = () => {
   })
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(game.player1mark)
+  const [winner, setWinner] = useState(false)
 
 
   const Gameboard = (() => {
@@ -96,19 +97,19 @@ const App = () => {
 
 
   useEffect(() => {
-    const winner = Gameboard.gameResult()
-    if (winner) {
+    const result = Gameboard.gameResult()
+    setWinner(result)
+    if (result) {
       // increment score
-      if (game.player1mark === winner) {
+      if (game.player1mark === result) {
         setGame({ ...game, player1score: game.player1score + 1 })
-      } else if (game.player2mark === winner) {
+      } else if (game.player2mark === result) {
         setGame({ ...game, player2score: game.player2score + 1 })
       }
-      // disable assign into board !!!
       // re-enable assign into board !!!
       // reset board !!!
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board])
 
 
@@ -130,7 +131,7 @@ const App = () => {
         Gamestate={Gamestate}
       />
       <Score game={game} />
-      <Board board={board} Gameboard={Gameboard} />
+      <Board board={board} Gameboard={Gameboard} winner={winner} />
       <PlayerDisplay player={1} />
       <PlayerDisplay player={2} />
     </div>
