@@ -126,11 +126,12 @@ const App = () => {
       <Navigation
         Gameboard={Gameboard}
         Gamestate={Gamestate}
+        winner={winner}
       />
       <Score game={game} winner={winner} />
       <Board board={board} Gameboard={Gameboard} winner={winner} />
-      <Player game={game} player={1} />
-      <Player game={game} player={2} />
+      <Player game={game} player={1} winner={winner} />
+      <Player game={game} player={2} winner={winner} />
       <Bottom turn={turn} />
     </div>
   )
