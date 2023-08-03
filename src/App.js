@@ -13,6 +13,7 @@ const App = () => {
   const [playState, setPlayState] = useState(true)
   const [game, setGame] = useState({
     mode: 'PvP',
+    level: 0,
     player1mark: 'X',
     player2mark: 'O',
     player1score: 0,
@@ -96,10 +97,40 @@ const App = () => {
     return { togglePlayState, changeMode, swapMarkMode, startGame }
   })()
 
+  const ComputerMove = (() => {
+
+    // computer make a random legal move
+    const easy = () => {
+
+      if (board.every(x => x !== null)) {
+        return
+      }
+
+      const assignMark = () => {
+        const rand = Math.floor(Math.random() * 9) // random num 0 to 8
+        if (!board[rand]) {
+          setBoard((() => {
+            const copy = [...board]
+            copy[rand] = turn
+            return copy
+          })())
+          setTurn(turn === 'X' ? 'O' : 'X')
+          return
+        }
+        assignMark()
+      }
+
+      assignMark()
+    }
+
+    return { easy }
+  })()
+
 
   useEffect(() => {
     const result = Gameboard.gameResult()
     setWinner(result)
+
     if (result) {
       // increment score
       if (game.player1mark === result) {
@@ -112,7 +143,13 @@ const App = () => {
         setWinner(false)
         Gameboard.resetBoard()
       }, 1500);
+
+    } else if (game.mode === 'PvC' && turn === game.player2mark) {
+      if (game.level === 0) {
+        ComputerMove.easy()
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board])
 
@@ -129,7 +166,13 @@ const App = () => {
         winner={winner}
       />
       <Score game={game} winner={winner} />
-      <Board board={board} Gameboard={Gameboard} winner={winner} />
+      <Board
+        turn={turn}
+        game={game}
+        board={board}
+        winner={winner}
+        Gameboard={Gameboard}
+      />
       <Player game={game} player={1} winner={winner} />
       <Player game={game} player={2} winner={winner} />
       <Bottom turn={turn} />
