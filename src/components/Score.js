@@ -1,9 +1,9 @@
 import './Score.css'
 
-const Score = () => {
+const Score = ({ game }) => {
   return (
     <div className='Score'>
-      2-3
+      {game.player1score}-{game.player2score}
     </div>
   )
 }

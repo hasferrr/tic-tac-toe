@@ -112,7 +112,7 @@ const App = () => {
         Gameboard={Gameboard}
         Gamestate={Gamestate}
       />
-      <Score />
+      <Score game={game}/>
       <Board board={board} Gameboard={Gameboard} />
       <PlayerDisplay player={1} />
       <PlayerDisplay player={2} />
