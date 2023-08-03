@@ -1,11 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
 import './App.css'
+
 import Board from './components/Board'
 import Navigation from './components/Navigation'
 import Score from './components/Score'
 import PlayerDisplay from './components/PlayerDisplay'
+import Settings from './components/Settings'
 
 const App = () => {
+  const [playState, setPlayState] = useState(true)
+  const [game, setGame] = useState({
+    mode: 'PvP',
+    player1mark: 'X',
+    player2mark: 'O'
+  })
+
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState('X')
 
@@ -58,30 +68,30 @@ const App = () => {
     return { assign, resetBoard, gameResult }
   })()
 
-  /**
-   *
-   * @param {string} name
-   * @param {string} type
-   * @param {string} mark
-   * @returns
-   */
-  const Player = (name, type, mark) => {
-    let score = 0
-    const getName = () => name
-    const getType = () => type
-    const getMark = () => mark
-    const getScore = () => score
-    const addScore = () => ++score
-    return { getName, getType, getMark, getScore, addScore }
-  }
+  const togglePlayState = () => setPlayState(!playState)
+  const changeMode = newMode => setGame({ ...game, mode: newMode })
+  const swapMarkMode = () => setGame({
+    ...game,
+    player1mark: game.player2mark,
+    player2mark: game.player1mark
+  })
 
-  useEffect(() => {
-    console.log(Gameboard.gameResult())
-  }, [Gameboard])
+  if (playState) {
+    return (
+      <div>
+        <Settings
+          togglePlayState={togglePlayState}
+          game={game}
+          changeMode={changeMode}
+          swapMarkMode={swapMarkMode}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className='App'>
-      <Navigation Gameboard={Gameboard} />
+      <Navigation Gameboard={Gameboard} togglePlayState={togglePlayState} />
       <Score />
       <Board board={board} Gameboard={Gameboard} />
       <PlayerDisplay player={1} />

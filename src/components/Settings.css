@@ -1,0 +1,32 @@
+.Settings {
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem;
+  height: 100vh;
+  font-size: 2rem;
+}
+
+.Settings h1 {
+  font-size: 3rem;
+}
+
+.select-wrap {
+  gap: 2rem;
+}
+
+.select {
+  width: 20rem;
+  font-size: 5rem;
+  text-align: center;
+}
+
+.start {
+  width: 9rem;
+}
+
+.display-mode {
+  flex-direction: column;
+  font-family: monospace;
+  text-align: center;
+  gap: 2rem;
+}

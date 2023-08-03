@@ -12,8 +12,15 @@
   font-size: 1.75rem;
 }
 
-.reset {
-  border: 1px solid white;
-  padding: 0.25rem 0.5rem;
+.left {
+  display: flex;
   margin-left: auto;
+  gap: 1rem;
+}
+
+.smol {
+  font-size: 1rem;
+  box-shadow: none;
+  border: 2px solid;
+  box-shadow: 1px 1px 0px 0px, 1px 1px 0px 0px, 1px 1px 0px 0px, 1px 1px 0px 0px, 2px 2px 0px 0px;
 }
