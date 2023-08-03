@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import Board from './components/Board'
+import Navigation from './components/Navigation'
 
 const App = () => {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -59,13 +61,12 @@ const App = () => {
   }, [Gameboard])
 
   return (
-    <div className='Board'>
-      {board.map((box, index) =>
-        <div key={index} className='box' id={index} onClick={Gameboard.assign} >
-          {box}
-        </div>
-      )}
-    </div>
+    <>
+      <Navigation />
+      <div className='App'>
+        <Board board={board} Gameboard={Gameboard} />
+      </div>
+    </>
   )
 }
 

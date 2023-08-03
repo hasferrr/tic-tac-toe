@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,40 +7,26 @@
 }
 
 :root {
-  --length: 10rem;
-  --border: 3px solid black;
+  --navbar-height: 4rem;
+  --padding: 4rem;
 }
 
-.Board {
-  font-family: 'Courier New', Courier, monospace;
+body {
+  background-color: #41746e;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.App {
   display: grid;
-  grid-template-columns: repeat(3, var(--length));
-  grid-auto-rows: var(--length);
-  justify-content: center;
-  align-content: center;
-  height: 100vh;
+  grid-template-areas:
+    "left score right"
+    "left board right"
+    "left bottom right";
+  grid-template-columns: 0fr 5fr 0fr;
+  grid-template-rows: 1fr 8fr 1fr;
 }
 
-.box {
-  font-size: calc(var(--length) / 2);
-  border: var(--border);
-  border-bottom: 0;
-  border-right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
-}
-
-.box:nth-last-child(1),
-.box:nth-last-child(2),
-.box:nth-last-child(3) {
-  border-bottom: var(--border);
-}
-
-.box:nth-child(3),
-.box:nth-child(6),
-.box:nth-child(9) {
-  border-right: var(--border);
+.App,
+.App * {
+  border: 1px solid red;
 }
