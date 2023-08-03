@@ -7,7 +7,10 @@ const Player = ({ game, player, winner }) => {
     <div className={`Player p${player}`}>
       Player {player}
       <p className={`bg ${winner === playerMark ? 'light' : ''}`}>
-        {playerMark}
+        {playerMark === 'X'
+          ? <div id='cross'></div>
+          : <div id='circle'></div>
+        }
       </p>
     </div>
   )

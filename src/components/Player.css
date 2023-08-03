@@ -16,10 +16,46 @@
 .bg {
   position: absolute;
   font-size: 25rem;
-  color: rgba(255, 255, 255, 0.082);
-  user-select: none;
+  --color: rgba(255, 255, 255, 0.082);
 }
 
 .bg.light {
-  color: rgba(255, 255, 255, 0.200);
+  --color: rgba(255, 255, 255, 0.200);
+}
+
+#circle {
+  width: 17.5rem;
+  height: 17.5rem;
+  border: 1rem solid var(--color);
+  border-radius: 50%
+}
+
+#cross {
+  width: 20rem;
+  height: 20rem;
+  --weight: 1rem;
+  position: relative;
+  rotate: 45deg;
+}
+
+#cross:before,
+#cross:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+}
+
+#cross:before {
+  left: 50%;
+  width: var(--weight);
+  margin-left: calc(var(--weight) / 2 * -1);
+  height: 100%;
+}
+
+#cross:after {
+  top: 50%;
+  height: var(--weight);
+  margin-top: calc(var(--weight) / 2 * -1);
+  width: 100%;
 }
