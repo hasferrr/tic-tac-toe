@@ -128,8 +128,8 @@ const App = () => {
       />
       <Score game={game} winner={winner} />
       <Board board={board} Gameboard={Gameboard} winner={winner} />
-      <Player player={1} />
-      <Player player={2} />
+      <Player game={game} player={1} />
+      <Player game={game} player={2} />
     </div>
   )
 }

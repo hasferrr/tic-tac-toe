@@ -1,9 +1,10 @@
 import './Player.css'
 
-const Player = ({ player }) => {
+const Player = ({ game, player }) => {
   return (
     <div className={`Player p${player}`}>
       Player {player}
+      <p className='bg'>{game[`player${player}mark`]}</p>
     </div>
   )
 }

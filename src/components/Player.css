@@ -12,3 +12,10 @@
 .p2 {
   grid-area: right;
 }
+
+.Player .bg {
+  position: absolute;
+  font-size: 25rem;
+  color: rgba(255, 255, 255, 0.082);
+  user-select: none;
+}
