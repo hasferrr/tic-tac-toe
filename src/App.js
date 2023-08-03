@@ -106,8 +106,11 @@ const App = () => {
       } else if (game.player2mark === result) {
         setGame({ ...game, player2score: game.player2score + 1 })
       }
-      // re-enable assign into board !!!
-      // reset board !!!
+
+      setTimeout(() => {
+        setWinner(false)
+        Gameboard.resetBoard()
+      }, 2500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board])
@@ -130,7 +133,7 @@ const App = () => {
         Gameboard={Gameboard}
         Gamestate={Gamestate}
       />
-      <Score game={game} />
+      <Score game={game} winner={winner} />
       <Board board={board} Gameboard={Gameboard} winner={winner} />
       <PlayerDisplay player={1} />
       <PlayerDisplay player={2} />
