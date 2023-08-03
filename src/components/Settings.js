@@ -1,6 +1,6 @@
 import './Settings.css'
 
-const Settings = ({ togglePlayState, game, changeMode, swapMarkMode }) => {
+const Settings = ({ startGame, game, changeMode, swapMarkMode }) => {
 
   return (
     <div className='Settings center'>
@@ -23,7 +23,7 @@ const Settings = ({ togglePlayState, game, changeMode, swapMarkMode }) => {
 
       <button
         className="button-54 center start"
-        onClick={togglePlayState}
+        onClick={startGame}
       >
         Start
       </button>

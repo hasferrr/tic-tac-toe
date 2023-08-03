@@ -13,11 +13,13 @@ const App = () => {
   const [game, setGame] = useState({
     mode: 'PvP',
     player1mark: 'X',
-    player2mark: 'O'
+    player2mark: 'O',
+    player1score: 0,
+    player2score: 0
   })
 
   const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState('X')
+  const [turn, setTurn] = useState(game.player1mark)
 
   const Gameboard = (() => {
 
@@ -37,7 +39,7 @@ const App = () => {
     // Remove all X and O from board
     const resetBoard = () => {
       setBoard(Array(9).fill(null))
-      setTurn('X')
+      setTurn(game.player1mark)
     }
 
     // Produce the winner: 'X', 'O', 'tie', or False
@@ -76,6 +78,16 @@ const App = () => {
     player2mark: game.player1mark
   })
 
+  const startGame = () => {
+    togglePlayState()
+    Gameboard.resetBoard()
+    setGame({
+      ...game,
+      player1score: 0,
+      player2score: 0
+    })
+  }
+
   if (playState) {
     return (
       <div>
@@ -84,6 +96,7 @@ const App = () => {
           game={game}
           changeMode={changeMode}
           swapMarkMode={swapMarkMode}
+          startGame={startGame}
         />
       </div>
     )
