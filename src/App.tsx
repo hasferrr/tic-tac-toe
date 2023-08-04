@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from 'react'
 
 import './App.css'
@@ -9,9 +10,20 @@ import Player from './components/Player'
 import Mode from './components/Mode'
 import Bottom from './components/Bottom'
 
+type board = (null | 'X' | 'O')[]
+
+interface game {
+  mode: 'PvP' | 'PvC',
+  level: number,
+  player1mark: 'X' | 'O',
+  player2mark: 'X' | 'O',
+  player1score: number,
+  player2score: number
+}
+
 const App = () => {
   const [playState, setPlayState] = useState(true)
-  const [game, setGame] = useState({
+  const [game, setGame] = useState<game>({
     mode: 'PvP',
     level: 0,
     player1mark: 'X',
@@ -19,8 +31,8 @@ const App = () => {
     player1score: 0,
     player2score: 0
   })
-  const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState('X')
+  const [board, setBoard] = useState<board>(Array(9).fill(null))
+  const [turn, setTurn] = useState<'X' | 'O'>('X')
   const [winner, setWinner] = useState(false)
 
 
@@ -125,7 +137,7 @@ const App = () => {
 
   useEffect(() => {
     const result = Gameboard.gameResult()
-    setWinner(result)
+    setWinner(result ? true : false)
 
     if (result) {
       // increment score
