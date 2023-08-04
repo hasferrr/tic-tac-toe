@@ -11,6 +11,7 @@ import Mode from './components/Mode'
 import Bottom from './components/Bottom'
 
 type board = (null | 'X' | 'O')[]
+type turn = 'X' | 'O'
 
 interface game {
   mode: 'PvP' | 'PvC',
@@ -32,7 +33,7 @@ const App = () => {
     player2score: 0
   })
   const [board, setBoard] = useState<board>(Array(9).fill(null))
-  const [turn, setTurn] = useState<'X' | 'O'>('X')
+  const [turn, setTurn] = useState<turn>('X')
   const [winner, setWinner] = useState(false)
 
 
@@ -129,6 +130,53 @@ const App = () => {
         assignMark()
       }
       assignMark()
+    }
+
+    const minmax = (bd: board, turn: turn) => {
+      //state is tic-tac-toe board
+      const initialState = [...bd]
+
+      //return who's the turn now, X or O
+      const player = (s: board): turn => {
+        let X = 0
+        let O = 0
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] === 'X') X++
+          else if (s[i] === 'O') O++
+        }
+        return X > O ? 'O' : 'X'
+      }
+
+      //return index of legal moves in state s
+      const action = (s: board): Set<number> => {
+        const actionSet: Set<number> = new Set()
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] === null) {
+            actionSet.add(i)
+          }
+        }
+        return actionSet
+      }
+
+      //return state after action a taken in state s
+      const result = (s: board, a: number): board => {
+        const newS = [...s]
+        newS[a] = player(s)
+        return newS
+      }
+
+      //return true if someone win or draw, false otherwise
+      const terminal = (s: board): boolean => Gameboard.gameResult(s) ? true : false
+
+      //return numerical value of state s
+      const utility = (s: board): 1 | 0 | -1 => {
+        const res = Gameboard.gameResult(s)
+        return res === 'X' ? 1 : res === 'O' ? -1 : 0
+      }
+
+      const solve = () => { }
+
+      return solve()
     }
 
     return { easy }
