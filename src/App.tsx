@@ -60,8 +60,6 @@ const App = () => {
         if (s[i] === 'X') X++
         else if (s[i] === 'O') O++
       }
-      console.log('X:', X)
-      console.log('O:', O)
       return X > O ? 'O' : 'X'
     }
 
@@ -142,7 +140,7 @@ const App = () => {
       assignMark()
     }
 
-    const minmax = (bd: board, turn: turn) => {
+    const minmax = (bd: board) => {
       //state is tic-tac-toe board
       const initialState = [...bd]
 
