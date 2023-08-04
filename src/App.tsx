@@ -46,13 +46,23 @@ const App = () => {
 
     const assignManual = (index, value) => {
       if (board[index] === null) {
-        setBoard((() => {
-          const copy = [...board]
-          copy[index] = value
-          return copy
-        })())
-        setTurn(turn === 'X' ? 'O' : 'X')
+        const updatedBoard = [...board]
+        updatedBoard[index] = value
+        setBoard(updatedBoard)
+        setTurn(switchTurn(updatedBoard))
       }
+    }
+
+    const switchTurn = (s: board): turn => {
+      let X = 0
+      let O = 0
+      for (let i = 0; i < s.length; i++) {
+        if (s[i] === 'X') X++
+        else if (s[i] === 'O') O++
+      }
+      console.log('X:',X)
+      console.log('O:',O)
+      return X > O ? 'O' : 'X'
     }
 
     // Remove all X and O from board
@@ -87,7 +97,7 @@ const App = () => {
       return false
     }
 
-    return { assign, assignManual, resetBoard, gameResult }
+    return { assign, switchTurn, assignManual, resetBoard, gameResult }
   })()
 
   const Gamestate = (() => {
@@ -137,15 +147,7 @@ const App = () => {
       const initialState = [...bd]
 
       //return who's the turn now, X or O
-      const player = (s: board): turn => {
-        let X = 0
-        let O = 0
-        for (let i = 0; i < s.length; i++) {
-          if (s[i] === 'X') X++
-          else if (s[i] === 'O') O++
-        }
-        return X > O ? 'O' : 'X'
-      }
+      const player = (s: board): turn => Gameboard.switchTurn(s)
 
       //return index of legal moves in state s
       const action = (s: board): Set<number> => {
