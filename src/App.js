@@ -49,12 +49,13 @@ const App = () => {
     }
 
     // Produce the winner: 'X', 'O', 'tie', or False
-    const gameResult = () => {
+    // from the given board (or use the board state as a default value)
+    const gameResult = (bd = board) => {
       const row = check(templateRow)
       const column = check(templateCol)
       const diagonal = check(templateDiag)
       const result = row || column || diagonal
-      if (board.every(x => x) && !result) {
+      if (bd.every(x => x) && !result) {
         return 'tie'
       }
       return result
@@ -64,11 +65,11 @@ const App = () => {
     const templateCol = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
     const templateDiag = [[0, 4, 8], [2, 4, 6]]
 
-    const check = template => {
+    const check = (template, bd = board) => {
       for (let i = 0; i < template.length; i++) {
         const arr = template[i];
-        if (arr.every(x => board[x] === 'X')) return 'X'
-        if (arr.every(x => board[x] === 'O')) return 'O'
+        if (arr.every(x => bd[x] === 'X')) return 'X'
+        if (arr.every(x => bd[x] === 'O')) return 'O'
       }
       return false
     }
