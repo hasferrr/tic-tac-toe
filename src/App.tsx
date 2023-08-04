@@ -34,7 +34,7 @@ const App = () => {
   })
   const [board, setBoard] = useState<board>(Array(9).fill(null))
   const [turn, setTurn] = useState<turn>('X')
-  const [winner, setWinner] = useState(false)
+  const [winner, setWinner] = useState<turn | 'tie' | false>(false)
 
 
   const Gameboard = (() => {
@@ -185,7 +185,7 @@ const App = () => {
 
   useEffect(() => {
     const result = Gameboard.gameResult()
-    setWinner(result ? true : false)
+    setWinner(result)
 
     if (result) {
       // increment score
