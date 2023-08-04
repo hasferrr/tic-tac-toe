@@ -72,9 +72,9 @@ const App = () => {
     // Produce the winner: 'X', 'O', 'tie', or False
     // from the given board (or use the board state as a default value)
     const gameResult = (bd = board) => {
-      const row = check(templateRow)
-      const column = check(templateCol)
-      const diagonal = check(templateDiag)
+      const row = check(templateRow, bd)
+      const column = check(templateCol, bd)
+      const diagonal = check(templateDiag, bd)
       const result = row || column || diagonal
       if (bd.every(x => x) && !result) {
         return 'tie'
