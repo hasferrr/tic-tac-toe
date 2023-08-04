@@ -60,8 +60,8 @@ const App = () => {
         if (s[i] === 'X') X++
         else if (s[i] === 'O') O++
       }
-      console.log('X:',X)
-      console.log('O:',O)
+      console.log('X:', X)
+      console.log('O:', O)
       return X > O ? 'O' : 'X'
     }
 
@@ -150,38 +150,69 @@ const App = () => {
       const player = (s: board): turn => Gameboard.switchTurn(s)
 
       //return index of legal moves in state s
-      const action = (s: board): Set<number> => {
-        const actionSet: Set<number> = new Set()
+      const action = (s: board): number[] => {
+        const actionSet: number[] = []
         for (let i = 0; i < s.length; i++) {
           if (s[i] === null) {
-            actionSet.add(i)
+            actionSet.push(i)
           }
         }
         return actionSet
       }
 
       //return state after action a taken in state s
-      const result = (s: board, a: number): board => {
+      const createNextBoard = (s: board, a: number): board => {
         const newS = [...s]
         newS[a] = player(s)
         return newS
       }
 
       //return true if someone win or draw, false otherwise
-      const terminal = (s: board): boolean => Gameboard.gameResult(s) ? true : false
-
-      //return numerical value of state s
-      const utility = (s: board): 1 | 0 | -1 => {
-        const res = Gameboard.gameResult(s)
-        return res === 'X' ? 1 : res === 'O' ? -1 : 0
+      const terminal = (s: board, result?: false | "X" | "O" | "tie"): boolean => {
+        if (result === undefined) {
+          result = Gameboard.gameResult(s)
+        }
+        return result ? true : false
       }
 
-      const solve = () => { }
+      //return numerical value of state s
+      type value = 1 | 0 | -1
+      const utility = (s: board, result?: false | "X" | "O" | "tie"): value => {
+        if (result === undefined) {
+          result = Gameboard.gameResult(s)
+        }
+        if (result === false) {
+          throw new Error('minmax: utility error (there\'s no winner or tie) ')
+        }
+        return result === 'X' ? 1 : result === 'O' ? -1 : 0
+      }
 
-      return solve()
+      //return a function(s); decide whether maximize or minimize the value
+      const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
+        //@ts-ignore
+        player(bd) === 'X' ? Math.max : Math.min
+
+      const solve = (bd: board): value => {
+        const result = Gameboard.gameResult(bd)
+        if (terminal(bd, result)) {
+          return utility(bd, result)
+        }
+        const nextBoard = action(bd).map(e => createNextBoard(bd, e))
+        return solveMany(nextBoard)
+      }
+
+      const solveMany = (bdArray: board[]): value => {
+        if (bdArray.length === 0) {
+          throw new Error('solveMany reaches empty array')
+        }
+        const values = bdArray.map(bd => solve(bd))
+        return minmaxValueOf(bd)(...values)
+      }
+
+      return solve(initialState)
     }
 
-    return { easy }
+    return { easy, minmax }
   })()
 
 
