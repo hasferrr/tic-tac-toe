@@ -199,15 +199,15 @@ const App = () => {
         if (terminal(bd, result)) {
           return utility(bd, result)
         }
-        return solveMany(nextBoard(bd))
+        return solveMany(nextBoard(bd), minmaxValueOf(bd))
       }
 
-      const solveMany = (bdArray: board[]): value => {
+      const solveMany = (bdArray: board[], getMinMax: (...values: number[]) => value): value => {
         if (bdArray.length === 0) {
           throw new Error('solveMany reaches empty array')
         }
         const values = bdArray.map(bd => solve(bd))
-        return minmaxValueOf(bd)(...values)
+        return getMinMax(...values)
       }
 
       return solve(initialState)
