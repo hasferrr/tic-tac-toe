@@ -103,6 +103,8 @@ const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
   //@ts-ignore
   player(bd) === 'X' ? Math.max : Math.min
 
+const nextBoard = (bd: board) =>
+  action(bd).map(e => createNextBoard(bd, e))
 
 //------------------------//------------------------//------------------------
 
@@ -112,8 +114,7 @@ const solve = (bd: board): value => {
   if (terminal(bd, result)) {
     return utility(bd, result)
   }
-  const nextBoard = action(bd).map(e => createNextBoard(bd, e))
-  return solveMany(nextBoard)
+  return solveMany(nextBoard(bd))
 }
 
 const solveMany = (bdArray: board[]): value => {
@@ -464,6 +465,68 @@ test('utility 5T', () => {
   //@ts-ignore
   expect(utility([X,O,X,  X,O,X,  O,X,O]))
     .toStrictEqual(0)
+})
+
+// ----------------------------------NEXT BOARD------------------------------------
+
+test('NEXT BOARD 0', () => {
+  expect(nextBoard(empty))
+    .toStrictEqual(
+      (() => {
+        const arr0 = [...empty]
+        const arr1 = [...empty]
+        const arr2 = [...empty]
+        const arr3 = [...empty]
+        const arr4 = [...empty]
+        const arr5 = [...empty]
+        const arr6 = [...empty]
+        const arr7 = [...empty]
+        const arr8 = [...empty]
+        arr0[0] = X
+        arr1[1] = X
+        arr2[2] = X
+        arr3[3] = X
+        arr4[4] = X
+        arr5[5] = X
+        arr6[6] = X
+        arr7[7] = X
+        arr8[8] = X
+        return [
+          arr0,
+          arr1,
+          arr2,
+          arr3,
+          arr4,
+          arr5,
+          arr6,
+          arr7,
+          arr8
+        ]
+      })()
+    )
+})
+
+let nb1Test =
+ [_,X,O,
+  O,X,_,
+  X,_,O]
+test('NEXT BOARD 1', () => {
+  expect(nextBoard(nb1Test))
+    .toStrictEqual(
+      (() => {
+        const arr0 = [...nb1Test]
+        const arr5 = [...nb1Test]
+        const arr7 = [...nb1Test]
+        arr0[0] = X
+        arr5[5] = X
+        arr7[7] = X
+        return [
+          arr0,
+          arr5,
+          arr7,
+        ]
+      })()
+    )
 })
 
 // --------------------------------------------------------------------------------

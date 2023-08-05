@@ -190,13 +190,16 @@ const App = () => {
         //@ts-ignore
         player(bd) === 'X' ? Math.max : Math.min
 
+      //return the valid next board of the given board
+      const nextBoard = (bd: board) =>
+        action(bd).map(e => createNextBoard(bd, e))
+
       const solve = (bd: board): value => {
         const result = Gameboard.gameResult(bd)
         if (terminal(bd, result)) {
           return utility(bd, result)
         }
-        const nextBoard = action(bd).map(e => createNextBoard(bd, e))
-        return solveMany(nextBoard)
+        return solveMany(nextBoard(bd))
       }
 
       const solveMany = (bdArray: board[]): value => {
