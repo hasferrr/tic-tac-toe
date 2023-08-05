@@ -1,7 +1,5 @@
 # tic-tac-toe
 
-![mode](../assets/mode.png?raw=true)
-
 ![play](../assets/play.png?raw=true)
 
 ## Detail
