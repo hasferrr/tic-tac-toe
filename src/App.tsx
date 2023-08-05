@@ -119,7 +119,12 @@ const App = () => {
       })
     }
 
-    return { togglePlayState, changeMode, swapMarkMode, startGame }
+    const changeLevel = () => setGame({
+      ...game,
+      level: game.level ? 0 : 1
+    })
+
+    return { togglePlayState, changeMode, swapMarkMode, startGame, changeLevel }
   })()
 
   const ComputerMove = (() => {
@@ -264,6 +269,9 @@ const App = () => {
 
     } else if (game.mode === 'PvC' && turn === game.player2mark) {
       if (game.level === 0) {
+        ComputerMove.easy()
+      }
+      if (game.level === 1) {
         setTimeout(() => {
           ComputerMove.impossible()
         }, 10);

@@ -16,7 +16,13 @@ const Mode = ({ Gamestate, game }) => {
       </section>
 
       <section className='display-mode center'>
-        <p>Mode : <strong>{game.mode}</strong></p>
+        <div>
+          Mode : <strong>{game.mode} </strong>
+          {game.mode === 'PvC'
+            ? <strong className='button-54' onClick={Gamestate.changeLevel}>{game.level ? 'Hard' : 'Easy'}</strong>
+            : <></>
+          }
+        </div>
         <div>Player 1 : <strong className='button-54' onClick={Gamestate.swapMarkMode}>{game.player1mark}</strong></div>
         <div>Player 2 : <strong className='button-54' onClick={Gamestate.swapMarkMode}>{game.player2mark}</strong></div>
       </section>
