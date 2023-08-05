@@ -158,7 +158,16 @@ const App = () => {
         if (bdArray.length === 0) {
           throw new Error('solveMany reaches empty array')
         }
-        const values = bdArray.map(bd => solve(bd))
+        const values: value[] = []
+        const desiredOutcomes = getMinMax === Math.max ? 1 : -1
+
+        for (let i = 0; i < bdArray.length; i++) {
+          if (values.includes(desiredOutcomes)) {
+            break
+          }
+          values.push(solve(bdArray[i]))
+        }
+
         return getMinMax(...values)
       }
 
