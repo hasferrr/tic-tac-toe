@@ -144,56 +144,6 @@ const App = () => {
       //state is tic-tac-toe board
       const initialState = [...bd]
 
-      //return who's the turn now, X or O
-      const player = (s: board): turn => Gameboard.switchTurn(s)
-
-      //return index of legal moves in state s
-      const action = (s: board): number[] => {
-        const actionSet: number[] = []
-        for (let i = 0; i < s.length; i++) {
-          if (s[i] === null) {
-            actionSet.push(i)
-          }
-        }
-        return actionSet
-      }
-
-      //return state after action a taken in state s
-      const createNextBoard = (s: board, a: number): board => {
-        const newS = [...s]
-        newS[a] = player(s)
-        return newS
-      }
-
-      //return true if someone win or draw, false otherwise
-      const terminal = (s: board, result?: false | "X" | "O" | "tie"): boolean => {
-        if (result === undefined) {
-          result = Gameboard.gameResult(s)
-        }
-        return result ? true : false
-      }
-
-      //return numerical value of state s
-      type value = 1 | 0 | -1
-      const utility = (s: board, result?: false | "X" | "O" | "tie"): value => {
-        if (result === undefined) {
-          result = Gameboard.gameResult(s)
-        }
-        if (result === false) {
-          throw new Error('minmax: utility error (there\'s no winner or tie) ')
-        }
-        return result === 'X' ? 1 : result === 'O' ? -1 : 0
-      }
-
-      //return a function(s); decide whether maximize or minimize the value
-      const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
-        //@ts-ignore
-        player(s) === 'X' ? Math.max : Math.min
-
-      //return the valid next board of the given board
-      const nextBoard = (bd: board) =>
-        action(bd).map(e => createNextBoard(bd, e))
-
       const solve = (bd: board): value => {
         const result = Gameboard.gameResult(bd)
         if (terminal(bd, result)) {
@@ -212,6 +162,55 @@ const App = () => {
 
       return solve(initialState)
     }
+
+    //return who's the turn now, X or O
+    const player = (s: board): turn => Gameboard.switchTurn(s)
+
+    //return index of legal moves in state s
+    const action = (s: board): number[] => {
+      const actionSet: number[] = []
+      for (let i = 0; i < s.length; i++) {
+        if (s[i] === null) {
+          actionSet.push(i)
+        }
+      }
+      return actionSet
+    }
+
+    //return state after action a taken in state s
+    const createNextBoard = (s: board, a: number): board => {
+      const newS = [...s]
+      newS[a] = player(s)
+      return newS
+    }
+
+    //return true if someone win or draw, false otherwise
+    const terminal = (s: board, result?: false | "X" | "O" | "tie"): boolean => {
+      if (result === undefined) {
+        result = Gameboard.gameResult(s)
+      }
+      return result ? true : false
+    }
+
+    //return numerical value of state s
+    type value = 1 | 0 | -1
+    const utility = (s: board, result?: false | "X" | "O" | "tie"): value => {
+      if (result === undefined) {
+        result = Gameboard.gameResult(s)
+      }
+      if (result === false) {
+        throw new Error('minmax: utility error (there\'s no winner or tie) ')
+      }
+      return result === 'X' ? 1 : result === 'O' ? -1 : 0
+    }
+
+    //return a function(s); decide whether maximize or minimize the value
+    const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
+      //@ts-ignore
+      player(s) === 'X' ? Math.max : Math.min
+
+    //return the valid next board of the given board
+    const nextBoard = (bd: board) => action(bd).map(e => createNextBoard(bd, e))
 
     return { easy, minmax }
   })()
