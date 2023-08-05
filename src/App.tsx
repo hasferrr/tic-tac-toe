@@ -212,7 +212,34 @@ const App = () => {
     //return the valid next board of the given board
     const nextBoard = (bd: board) => action(bd).map(e => createNextBoard(bd, e))
 
-    return { easy, minmax }
+    const impossible = () => {
+      if (board.every(x => x !== null)) {
+        return
+      }
+
+      //generate the array of: [valid next board], and [index of legal moves]
+      const arrNextBD = nextBoard(board)
+      const arrActions = action(board)
+
+      // { bd: next bd, action: index of legal move, value: minmax(bd) }
+      const arrNbdActionVal = arrNextBD.map((bd, index) => {
+        return { bd: bd, action: arrActions[index], value: minmax(bd) }
+      })
+
+      // get minmax value from the next boards
+      const theMinMax = minmaxValueOf(board)(...arrNbdActionVal.map(x => x.value))
+
+      //assign value corresponds to the minmax value
+      for (let i = 0; i < arrNbdActionVal.length; i++) {
+        const nextObj = arrNbdActionVal[i];
+        if (nextObj.value === theMinMax) {
+          Gameboard.assignManual(nextObj.action, player(board))
+          break
+        }
+      }
+    }
+
+    return { easy, impossible }
   })()
 
 
@@ -235,7 +262,9 @@ const App = () => {
 
     } else if (game.mode === 'PvC' && turn === game.player2mark) {
       if (game.level === 0) {
-        ComputerMove.easy()
+        setTimeout(() => {
+          ComputerMove.impossible()
+        }, 0);
       }
     }
 
