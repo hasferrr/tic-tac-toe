@@ -134,15 +134,16 @@ const App = () => {
       if (board.every(x => x !== null)) {
         return
       }
-      const assignMark = () => {
-        const rand = Math.floor(Math.random() * 9) // random num 0 to 8
-        if (!board[rand]) {
-          Gameboard.assignManual(rand, turn)
-          return
-        }
-        assignMark()
+      assignRandom()
+    }
+
+    const assignRandom = () => {
+      const rand = Math.floor(Math.random() * 9) // random num 0 to 8
+      if (!board[rand]) {
+        Gameboard.assignManual(rand, turn)
+        return
       }
-      assignMark()
+      assignRandom()
     }
 
     const minmax = (bd: board) => {
@@ -229,7 +230,15 @@ const App = () => {
     }
 
     const impossible = () => {
-      if (board.every(x => x !== null)) {
+      let nil = 0
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === null) nil++
+      }
+      if (nil === 0) {
+        return
+      }
+      if (nil === 9) {
+        assignRandom()
         return
       }
 
