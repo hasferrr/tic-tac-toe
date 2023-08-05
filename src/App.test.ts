@@ -101,7 +101,7 @@ const utility = (s: board, result?: false | "X" | "O" | "tie"): value => {
 //return a function(s); decide whether maximize or minimize the value
 const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
   //@ts-ignore
-  player(bd) === 'X' ? Math.max : Math.min
+  player(s) === 'X' ? Math.max : Math.min
 
 const nextBoard = (bd: board) =>
   action(bd).map(e => createNextBoard(bd, e))
@@ -146,7 +146,13 @@ empty = [N, N, N, N, N, N, N, N, N]
 FullX = [X, X, X, X, X, X, X, X, X]
 FullO = [O, O, O, O, O, O, O, O, O]
 
-// ------------------------------------Switch Turn-------------------------------------
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+// ----------------------------------            ------------------------------------
+// ---------------------------------- UNIT TESTS ------------------------------------
+// ----------------------------------            ------------------------------------
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
 
 test('Player 1', () => {
   expect(player(empty))
@@ -465,6 +471,24 @@ test('utility 5T', () => {
   //@ts-ignore
   expect(utility([X,O,X,  X,O,X,  O,X,O]))
     .toStrictEqual(0)
+})
+
+// ----------------------------MIN MAX VALUE FUNCTION------------------------------
+
+test('get Minmaxvalueof Function Empty', () => {
+  expect(minmaxValueOf(empty))
+    .toStrictEqual(Math.max)
+})
+
+test('get Minmaxvalueof Function 1', () => {
+  expect(minmaxValueOf(
+    (() => {
+      const asdf = [...empty]
+      asdf[0] = X
+      return asdf
+    })()
+  ))
+    .toStrictEqual(Math.min)
 })
 
 // ----------------------------------NEXT BOARD------------------------------------

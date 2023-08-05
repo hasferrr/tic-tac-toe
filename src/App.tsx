@@ -188,7 +188,7 @@ const App = () => {
       //return a function(s); decide whether maximize or minimize the value
       const minmaxValueOf = (s: board): ((...values: number[]) => value) =>
         //@ts-ignore
-        player(bd) === 'X' ? Math.max : Math.min
+        player(s) === 'X' ? Math.max : Math.min
 
       //return the valid next board of the given board
       const nextBoard = (bd: board) =>
