@@ -141,9 +141,6 @@ const App = () => {
     }
 
     const minmax = (bd: board) => {
-      //state is tic-tac-toe board
-      const initialState = [...bd]
-
       const solve = (bd: board): value => {
         const result = Gameboard.gameResult(bd)
         if (terminal(bd, result)) {
@@ -160,7 +157,7 @@ const App = () => {
         return getMinMax(...values)
       }
 
-      return solve(initialState)
+      return solve(bd)
     }
 
     //return who's the turn now, X or O
@@ -210,7 +207,12 @@ const App = () => {
       player(s) === 'X' ? Math.max : Math.min
 
     //return the valid next board of the given board
-    const nextBoard = (bd: board) => action(bd).map(e => createNextBoard(bd, e))
+    const nextBoard = (bd: board, actions?: number[]) => {
+      if (actions === undefined) {
+        return action(bd).map(e => createNextBoard(bd, e))
+      }
+      return actions.map(e => createNextBoard(bd, e))
+    }
 
     const impossible = () => {
       if (board.every(x => x !== null)) {
@@ -218,8 +220,8 @@ const App = () => {
       }
 
       //generate the array of: [valid next board], and [index of legal moves]
-      const arrNextBD = nextBoard(board)
       const arrActions = action(board)
+      const arrNextBD = nextBoard(board, arrActions)
 
       // { bd: next bd, action: index of legal move, value: minmax(bd) }
       const arrNbdActionVal = arrNextBD.map((bd, index) => {
@@ -264,7 +266,7 @@ const App = () => {
       if (game.level === 0) {
         setTimeout(() => {
           ComputerMove.impossible()
-        }, 0);
+        }, 10);
       }
     }
 
